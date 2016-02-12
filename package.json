@@ -1,0 +1,57 @@
+{
+  "name": "gen-defaults",
+  "description": "Generic default settings for 'generate' generators.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/jonschlinkert/gen-defaults",
+  "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
+  "repository": "jonschlinkert/gen-defaults",
+  "bugs": {
+    "url": "https://github.com/jonschlinkert/gen-defaults/issues"
+  },
+  "license": "MIT",
+  "files": [
+    "index.js"
+  ],
+  "main": "index.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "dependencies": {
+    "common-middleware": "^0.2.5",
+    "engine-base": "^0.1.2",
+    "helper-date": "^0.2.2"
+  },
+  "devDependencies": {
+    "gulp-format-md": "*",
+    "mocha": "*"
+  },
+  "keywords": [
+    "generate",
+    "generator",
+    "template",
+    "templates",
+    "verb",
+    "verb-generator",
+    "verbgenerator"
+  ],
+  "verb": {
+    "layout": "global",
+    "plugins": [
+      "gulp-format-md"
+    ],
+    "related": {
+      "highlight": "generate",
+      "list": [
+        "assemble",
+        "generate",
+        "verb"
+      ]
+    },
+    "reflinks": [
+      "verb"
+    ]
+  }
+}
