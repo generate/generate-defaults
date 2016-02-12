@@ -38,7 +38,10 @@
     "verbgenerator"
   ],
   "verb": {
-    "layout": "global",
+    "layout": "default",
+    "tasks": [
+      "readme"
+    ],
     "plugins": [
       "gulp-format-md"
     ],
@@ -51,6 +54,8 @@
       ]
     },
     "reflinks": [
+      "assemble",
+      "generate",
       "verb"
     ]
   }
