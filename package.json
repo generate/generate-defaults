@@ -1,16 +1,17 @@
 {
-  "name": "gen-defaults",
-  "description": "Generic default settings for 'generate' generators.",
+  "name": "generate-defaults",
+  "description": "Use this generator to add some common default settings to your 'generate', verb, and assemble generators.",
   "version": "0.1.0",
-  "homepage": "https://github.com/jonschlinkert/gen-defaults",
+  "homepage": "https://github.com/jonschlinkert/generate-defaults",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
-  "repository": "jonschlinkert/gen-defaults",
+  "repository": "jonschlinkert/generate-defaults",
   "bugs": {
-    "url": "https://github.com/jonschlinkert/gen-defaults/issues"
+    "url": "https://github.com/jonschlinkert/generate-defaults/issues"
   },
   "license": "MIT",
   "files": [
-    "index.js"
+    "index.js",
+    "utils.js"
   ],
   "main": "index.js",
   "engines": {
@@ -22,7 +23,10 @@
   "dependencies": {
     "common-middleware": "^0.2.5",
     "engine-base": "^0.1.2",
-    "helper-date": "^0.2.2"
+    "extend-shallow": "^2.0.1",
+    "helper-date": "^0.2.2",
+    "isobject": "^2.0.0",
+    "lazy-cache": "^1.0.3"
   },
   "devDependencies": {
     "gulp-format-md": "*",
@@ -55,6 +59,7 @@
     },
     "reflinks": [
       "assemble",
+      "common-middleware",
       "generate",
       "verb"
     ]
