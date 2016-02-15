@@ -46,15 +46,26 @@ describe('generate-defaults', function() {
   });
 
   describe('generator', function() {
-    it('', function(cb) {
-      cb();
-    });
-  });
+    it('should extend a generator', function(cb) {
+      app.generator('foo', function(foo) {
+        foo.extendWith(defaults);
+        var count = 0;
 
-  describe('function', function() {
-    it('', function(cb) {
+        foo.task('bar', function(next) {
+          assert(foo.views.hasOwnProperty('docs'));
+          assert(foo.views.hasOwnProperty('layouts'));
+          assert(foo.views.hasOwnProperty('includes'));
+          count++;
+          next();
+        });
 
-      cb();
+        foo.task('default', ['defaults', 'bar']);
+        foo.build('default', function(err) {
+          if (err) return cb(err);
+          assert.equal(count, 1);
+          cb();
+        });
+      });
     });
   });
 });
