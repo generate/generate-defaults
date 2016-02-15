@@ -1,6 +1,6 @@
 'use strict';
 
-var collections = require('./collections');
+var collections = require('generate-collections');
 var utils = require('./utils');
 
 /**
@@ -20,7 +20,7 @@ var utils = require('./utils');
  * In your generator:
  *
  * ```js
- * app.extendWith(require('generate-collections'));
+ * app.extendWith(require('generate-defaults'));
  * ```
  * @param {Object} `app` instance of generator, verb or assemble.
  * @api public
@@ -77,24 +77,15 @@ function defaults(app, options) {
   app.helper('date', utils.date);
 
   // data
-  app.data({cwd: opts.cwd || app.cwd || process.cwd()});
+  app.data({cwd: opts.cwd || app.cwd});
   app.data({year: new Date().getFullYear()});
   app.data(app.pkg.data || {});
 
   // middleware
   app.use(utils.middleware());
 
-  // use an empty layout to unsure that all pre-and
-  // post-layout middleware are still triggered
-  app.preLayout(/\.md/, function(view, next) {
-    if (view.isType('renderable') && !view.layout) {
-      view.layout = 'empty';
-    }
-    next();
-  });
-
   // template collections
-  collections.invoke(app, options);
+  collections.invoke(app, opts);
 };
 
 /**
