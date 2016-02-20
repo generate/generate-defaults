@@ -12,29 +12,80 @@ Install with [npm](https://www.npmjs.com/):
 $ npm i generate-defaults --save
 ```
 
+## Quickstart
+
+**Getting started**
+
+If you're not already familiar with [generate](https://github.com/generate/generate), you might find generate's [getting started guide](https://github.com/generate/generate/blob/master/docs/getting-started.md) useful before continuining.
+
+<br>
+
+***
+
 ## Usage
 
-If you're not already familiar with [generate](https://github.com/generate/generate), you might find generate's [getting started guide](https://github.com/generate/generate/blob/master/docs/getting-started.md) useful.
+With both `generate-defaults` and `generate` installed globally, you should now be able to run this generator's default task with the following command:
 
-**Extend your generator**
-
-Extend your own generator with all of the settings in this generator:
-
-```js
-app.extendWith('generate-defaults');
+```sh
+$ gen defaults
 ```
 
-## API
+If the generator and its task completed successfuly, you should see something like this in the terminal:
 
-* three template collections: `layouts`, `includes` and `docs`
-* template engine (registered as `*`), for processing erb/lodash style templates
-* a `date` helper that can be used in templates
-* loads `package.json` data onto the context for rendering templates (if one exists)
-* adds the routes and middleware from [common-middleware](https://github.com/jonschlinkert/common-middleware).
-If a collection does already exist on the instance, its options will
-be updated with any options defined on your application instance,
-or options passed directly to the [load](#load) function.
-In your generator:
+```sh
+[00:44:21] starting defaults generator
+[00:44:21] starting defaults:default task
+[00:44:22] finished defaults:default task 63ms
+[00:44:22] finished defaults generator 68ms
+[00:44:22] finished ✔
+```
+
+## Extend your generator
+
+The [usage instructions](#usage) explain how to use this as a standalone generator, but you can also use `generate-defaults` to extend your own generator, and cut down on boilerplate code needed to get up and running.
+
+To extend your generator, add the  `.extendWith()` line inside your generator:
+
+```js
+var defaults = require('generate-defaults');
+
+module.exports = function(app) {
+  defaults.invoke(app[, options]);
+
+  // do generator stuff
+};
+```
+
+That's it! you should now be able to use any features from `generate-defaults` as if they were created in your own generator.
+
+**Override settings**
+
+You can override any feature or setting from `generate-defaults` by defining new values. E.g. we aren't doing any magic, the `.invoke` method just calls this generator in the context of your generator's instance.
+
+## Advanced usage
+
+**Lazily-extend your generator**
+
+Run the `defaults` task to lazily add the features and settings from `generate-defaults`.
+
+This approach offers the advantage of choosing when and where to invoke `generate-defaults` inside your own generator.
+
+```js
+module.exports = function(app) {
+  app.extendWith(require('generate-defaults'));
+
+  app.task('foo', function(cb) {
+    // do task stuff
+    cb();
+  });
+
+  app.task('default', ['defaults', 'foo']);
+};
+```
+
+**Note that** _before running task `foo`, you MUST RUN the `defaults` task_ to get the features from `generate-defaults` loaded onto your generator's instance.
+
+## API
 
 **Params**
 
@@ -46,7 +97,7 @@ In your generator:
 app.extendWith(require('generate-defaults'));
 ```
 
-### [task](index.js#L47)
+### [.task](index.js#L35)
 
 Exposes the task function directly, allowing you to register the task with whatever name you want.
 
@@ -62,7 +113,7 @@ var defaults = require('generate-defaults');
 app.task('foo', defaults.task(app));
 ```
 
-### [.invoke](index.js#L70)
+### [.invoke](index.js#L59)
 
 Exposes the generator on the `invoke` property, allowing you to load the default where it makes sense.
 
@@ -79,6 +130,18 @@ var default = require('generate-default');
 // in your generator
 default.invoke(app, [options]);
 ```
+
+## What's included?
+
+When [invoked](#usage), this generator adds the following default configuration settings to your generator:
+
+* Four template collections from [generate-collections](https://github.com/jonschlinkert/generate-collections): `layouts`, `includes`, `docs` and `badges`
+* Template engine (registered as `*`), for processing erb/lodash style templates
+* A `date` helper that can be used in templates
+* If a `package.json` exists in the cwd, it's loaded onto the context for rendering templates
+* Adds the routes and middleware from [common-middleware](https://github.com/jonschlinkert/common-middleware).
+
+If a collection does already exist on the instance, its options will be updated with any options defined on your application instance, or options passed directly to the [load](#load) function.
 
 ## Compatibility
 
@@ -135,4 +198,4 @@ Released under the [MIT license](https://github.com/jonschlinkert/generate-defau
 
 ***
 
-_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on February 14, 2016._
+_This file was generated by [verb](https://github.com/verbose/verb), v0.9.0, on February 20, 2016._
