@@ -1,6 +1,7 @@
 'use strict';
 
 var collections = require('generate-collections');
+var questions = require('generate-ask');
 var utils = require('./utils');
 
 /**
@@ -45,9 +46,9 @@ module.exports = function(app) {
  */
 
 function task(app) {
+  defaults(app);
   return function(cb) {
-    defaults(app);
-    cb();
+    app.build('ask', cb);
   };
 }
 
@@ -68,7 +69,7 @@ function task(app) {
  */
 
 function defaults(app, options) {
-  var opts = utils.extend({}, app.options, options);
+  var opts = utils.merge({}, app.options, options);
 
   // engines
   app.engine('*', utils.engine, opts.engine);
@@ -79,7 +80,10 @@ function defaults(app, options) {
   // data
   app.data({cwd: opts.cwd || app.cwd});
   app.data({year: new Date().getFullYear()});
+  app.data(app.store.data || {});
   app.data(app.pkg.data || {});
+  app.data({author: expandPerson(app.data('author'))});
+  app.data({owner: owner(app, app.pkg.data) || app.options.owner});
 
   // middleware
   app.use(utils.middleware());
@@ -94,3 +98,40 @@ function defaults(app, options) {
 
 module.exports.invoke = defaults;
 module.exports.task = task;
+
+function owner(app, pkg) {
+  var repo = pkg.repository;
+  if (utils.isObject(repo)) {
+    repo = repo.url;
+  }
+  if (typeof repo === 'string') {
+    var obj = utils.parseGithubUrl(repo);
+    return obj.owner;
+  }
+  return app.data('author.username');
+}
+
+/**
+ * Expand person strings into objects
+ */
+
+function expandPerson(str) {
+  var person = {};
+  if (Array.isArray(str)) {
+    str.forEach(function(val) {
+      person = utils.merge({}, person, utils.parseAuthor(val));
+    });
+  } else if (typeof str === 'string') {
+    person = utils.merge({}, person, utils.parseAuthor(str));
+  } else if (str && typeof str === 'object') {
+    person = utils.merge({}, person, str);
+  }
+  if (!person.username && person.url && /github\.com/.test(person.url)) {
+    person.username = person.url.slice(person.url.lastIndexOf('/') + 1);
+  }
+  if (!person.twitter && person.username) {
+    person.twitter = person.username;
+  }
+  person = utils.omitEmpty(person);
+  return person;
+}
