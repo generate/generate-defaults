@@ -1,7 +1,7 @@
 {
   "name": "generate-defaults",
   "description": "Use this generator to add some common default settings to your 'generate', verb, and assemble generators.",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "homepage": "https://github.com/jonschlinkert/generate-defaults",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "jonschlinkert/generate-defaults",
@@ -52,6 +52,8 @@
     "verbgenerator"
   ],
   "verb": {
+    "run": true,
+    "toc": false,
     "layout": "default",
     "tasks": [
       "readme"
@@ -71,7 +73,11 @@
       "assemble",
       "common-middleware",
       "generate",
-      "verb"
-    ]
+      "verb",
+      "generate-collections"
+    ],
+    "lint": {
+      "reflinks": true
+    }
   }
 }
