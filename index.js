@@ -1,24 +1,10 @@
 'use strict';
 
 var collections = require('generate-collections');
-var questions = require('generate-ask');
 var utils = require('./utils');
 
 /**
- * When [invoked](#usage), this generate adds default configuration
- * settings to your generator, including:
- *
- * - three template collections: `layouts`, `includes` and `docs`
- * - template engine (registered as `*`), for processing erb/lodash style templates
- * - a `date` helper that can be used in templates
- * - loads `package.json` data onto the context for rendering templates (if one exists)
- * - adds the routes and middleware from [common-middleware][].
- *
- * If a collection does already exist on the instance, its options will
- * be updated with any options defined on your application instance,
- * or options passed directly to the [load](#load) function.
- *
- * In your generator:
+ * Lazily-extend your generator with the following line of code.
  *
  * ```js
  * app.extendWith(require('generate-defaults'));
@@ -27,8 +13,8 @@ var utils = require('./utils');
  * @api public
  */
 
-module.exports = function(app) {
-  app.task('defaults', { silent: true }, task(app));
+module.exports = function(app, base) {
+  app.task('defaults', { silent: true }, task(app, base.options));
   app.task('default', ['defaults']);
 };
 
@@ -40,15 +26,17 @@ module.exports = function(app) {
  * var defaults = require('generate-defaults');
  * app.task('foo', defaults.task(app));
  * ```
+ * @name .task
  * @param {Object} `app`
  * @return {Function} Returns the task callback
  * @api public
  */
 
-function task(app) {
-  defaults(app);
+function task(app, options) {
+  defaults(app, options);
+
   return function(cb) {
-    app.build('ask', cb);
+    app.build(['collections'], cb);
   };
 }
 
@@ -69,6 +57,9 @@ function task(app) {
  */
 
 function defaults(app, options) {
+  app.extendWith(collections);
+
+  // merge generator options with instance options
   var opts = utils.merge({}, app.options, options);
 
   // engines
@@ -84,20 +75,31 @@ function defaults(app, options) {
   app.data(app.pkg.data || {});
   app.data({author: expandPerson(app.data('author'))});
   app.data({owner: owner(app, app.pkg.data) || app.options.owner});
+  app.data(app.base.cache.data);
 
   // middleware
   app.use(utils.middleware());
-
-  // template collections
-  collections.invoke(app, opts);
 };
 
 /**
- * Expose defaults on the `load` property and as a task.
+ * Expose generators on `invoke`
  */
 
-module.exports.invoke = defaults;
+module.exports.invoke = function(app, options) {
+  collections.invoke(app, options);
+  defaults(app, options);
+};
+
+/**
+ * Expose the `defaults` task as a function, so it can
+ * be customized by the user
+ */
+
 module.exports.task = task;
+
+/**
+ * Create `owner` variable for templates context
+ */
 
 function owner(app, pkg) {
   var repo = pkg.repository;
