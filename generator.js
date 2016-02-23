@@ -42,7 +42,7 @@ function task(app, options) {
 
 /**
  * Exposes the generator on the `invoke` property, allowing you to load
- * the default where it makes sense.
+ * the default settings where it makes sense.
  *
  * ```js
  * var default = require('generate-default');
@@ -57,10 +57,10 @@ function task(app, options) {
  */
 
 function defaults(app, options) {
-  app.extendWith(require('generate-collections'));
+  app.extendWith(collections);
 
   // merge generator options with instance options
-  var opts = utils.merge({}, app.options, options);
+  var opts = utils.merge({engine: {delims: ['{%', '%}']}}, app.options, options);
 
   // engines
   app.engine('*', utils.engine, opts.engine);
