@@ -71,7 +71,6 @@ function defaults(app, options) {
   // data
   app.data({cwd: opts.cwd || app.cwd});
   app.data({year: new Date().getFullYear()});
-  app.data(app.store.data || {});
   app.data(app.pkg.data || {});
   app.data({author: expandPerson(app.data('author'))});
   app.data({owner: owner(app, app.pkg.data) || app.options.owner});
