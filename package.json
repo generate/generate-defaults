@@ -2,17 +2,16 @@
   "name": "generate-defaults",
   "description": "Use this generator to add some common default settings to your 'generate', verb, and assemble generators.",
   "version": "0.1.6",
-  "homepage": "https://github.com/jonschlinkert/generate-defaults",
+  "homepage": "https://github.com/generate/generate-defaults",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
-  "repository": "jonschlinkert/generate-defaults",
+  "repository": "generate/generate-defaults",
   "bugs": {
-    "url": "https://github.com/jonschlinkert/generate-defaults/issues"
+    "url": "https://github.com/generate/generate-defaults/issues"
   },
   "license": "MIT",
   "files": [
     "generator.js",
-    "index.js",
-    "utils.js"
+    "index.js"
   ],
   "main": "index.js",
   "engines": {
@@ -22,19 +21,11 @@
     "test": "mocha"
   },
   "dependencies": {
-    "common-middleware": "^0.2.5",
-    "engine-base": "^0.1.2",
-    "generate-collections": "^0.1.5",
-    "helper-date": "^0.2.2",
-    "isobject": "^2.0.0",
-    "lazy-cache": "^1.0.3",
-    "mixin-deep": "^1.1.3",
-    "omit-empty": "^0.3.2",
-    "parse-author": "^0.2.1",
-    "parse-github-url": "^0.3.0"
+    "verb-defaults": "^0.1.0",
+    "verb-repo-data": "^0.1.1"
   },
   "devDependencies": {
-    "generate": "^0.4.12",
+    "generate": "^0.4.14",
     "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0",
     "gulp-format-md": "^0.1.7",
@@ -54,7 +45,7 @@
   "verb": {
     "run": true,
     "toc": false,
-    "layout": "global",
+    "layout": "default",
     "tasks": [
       "readme"
     ],
@@ -73,8 +64,8 @@
       "assemble",
       "common-middleware",
       "generate",
-      "verb",
-      "generate-collections"
+      "generate-collections",
+      "verb"
     ],
     "lint": {
       "reflinks": true
