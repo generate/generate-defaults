@@ -1,5 +1,7 @@
 'use strict';
 
+var debug = require('debug')('generate:defaults');
+
 /**
  * Exposes the generator on the `invoke` property, allowing you to load
  * the default settings where it makes sense.
@@ -14,6 +16,8 @@
  */
 
 module.exports = function plugin(app, base) {
+  debug('initializing <%s>, from <%s>', __dirname, module.parent.id);
+
   if (!app.isApp && !app.isGenerator) {
     return;
   }

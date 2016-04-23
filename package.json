@@ -21,15 +21,16 @@
     "test": "mocha"
   },
   "dependencies": {
+    "debug": "^2.2.0",
     "verb-defaults": "^0.1.0",
     "verb-repo-data": "^0.1.1"
   },
   "devDependencies": {
-    "generate": "^0.4.14",
+    "generate": "^0.5.2",
     "gulp": "^3.9.1",
     "gulp-eslint": "^2.0.0",
-    "gulp-format-md": "^0.1.7",
-    "gulp-istanbul": "^0.10.3",
+    "gulp-format-md": "^0.1.8",
+    "gulp-istanbul": "^0.10.4",
     "gulp-mocha": "^2.2.0",
     "mocha": "^2.4.5"
   },
