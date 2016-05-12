@@ -24,14 +24,20 @@ describe('generate-defaults', function() {
   });
 
   describe('generator', function() {
-    it('should add defaults to a generator', function() {
+    it('should add package.json properties to `cache.data` on a generator', function() {
       app.use(defaults);
       assert(app.cache.data.hasOwnProperty('runner'));
       assert(app.cache.data.hasOwnProperty('name'));
       assert(app.cache.data.hasOwnProperty('version'));
     });
 
-    it('should add defaults to a sub-generator', function(cb) {
+    it('should add package.json properties to `cache.data.project` on a generator', function() {
+      app.use(defaults);
+      assert(app.cache.data.project.hasOwnProperty('name'));
+      assert(app.cache.data.project.hasOwnProperty('version'));
+    });
+
+    it('should add data properties to `cache.data` on a sub-generator', function(cb) {
       app.use(defaults);
       var count = 0;
 
@@ -39,6 +45,20 @@ describe('generate-defaults', function() {
         assert(foo.cache.data.hasOwnProperty('runner'));
         assert(foo.cache.data.hasOwnProperty('name'));
         assert(foo.cache.data.hasOwnProperty('version'));
+        count++;
+      });
+
+      assert.equal(count, 1);
+      cb();
+    });
+
+    it('should add "project" properties to `cache.data.project` on a sub-generator', function(cb) {
+      app.use(defaults);
+      var count = 0;
+
+      app.generator('foo', function(foo) {
+        assert(foo.cache.data.project.hasOwnProperty('name'));
+        assert(foo.cache.data.project.hasOwnProperty('version'));
         count++;
       });
 
