@@ -28,6 +28,7 @@ module.exports = function plugin(app, base) {
 
   app.use(utils.pkg());
   app.use(utils.middleware());
+  app.use(utils.questions());
   app.use(require('verb-repo-data'));
 
   /**
