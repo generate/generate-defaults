@@ -23,7 +23,7 @@ describe('generate-defaults', function() {
     });
   });
 
-  describe('generator', function() {
+  describe('data', function() {
     it('should add package.json properties to `cache.data` on a generator', function() {
       app.use(defaults);
       assert(app.cache.data.hasOwnProperty('runner'));

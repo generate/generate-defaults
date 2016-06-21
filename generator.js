@@ -1,6 +1,9 @@
 'use strict';
 
-var debug = require('debug')('generate:defaults');
+var os = require('os');
+var fs = require('fs');
+var path = require('path');
+var utils = require('./utils');
 
 /**
  * Exposes the generator on the `invoke` property, allowing you to load
@@ -16,24 +19,30 @@ var debug = require('debug')('generate:defaults');
  */
 
 module.exports = function plugin(app, base) {
-  debug('initializing <%s>, from <%s>', __dirname, module.parent.id);
+  if (!utils.isValid(app, 'generate-defaults')) return;
+  app.define('home', path.resolve.bind(path, os.homedir()));
 
-  if (!app.isApp && !app.isGenerator) {
-    debug('not an app or generator, returning');
-    return;
-  }
-  if (app.isRegistered('generate-defaults')) {
-    debug('already registered, returning');
-    return;
-  }
+  /**
+   * Plugins
+   */
 
+  app.use(utils.pkg());
+  app.use(utils.middleware());
   app.use(require('verb-repo-data'));
-  app.use(require('verb-defaults'));
-  app.data({project: project(app, base)});
+
+  /**
+   * Engine
+   */
+
+  if (!app.getEngine('*')) {
+    app.engine('*', require('engine-base'), app.option('engineOpts'));
+  }
+
+  /**
+   * Data
+   */
+
+  var projectData = utils.merge({}, app.pkg.data, app.get('cache.data.project'));
+  app.data({project: projectData});
   return plugin;
 };
-
-function project(app, base) {
-  var pkg = app.pkg || base.pkg || {};
-  return pkg.data || {};
-}
