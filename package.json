@@ -85,7 +85,7 @@
   ],
   "verb": {
     "run": true,
-    "toc": false,
+    "toc": true,
     "layout": "default",
     "tasks": [
       "readme"
@@ -107,7 +107,12 @@
       "generate",
       "generate-collections",
       "verb",
-      "verb-readme-generator"
+      "verb-readme-generator",
+      "common-questions",
+      "base-pkg",
+      "verb-repo-data",
+      "engine-base",
+      "template-helpers"
     ],
     "lint": {
       "reflinks": true
