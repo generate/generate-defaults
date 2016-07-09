@@ -10,8 +10,9 @@
   },
   "license": "MIT",
   "files": [
-    "generator.js",
     "index.js",
+    "LICENSE",
+    "README.md",
     "utils.js"
   ],
   "main": "index.js",
@@ -23,13 +24,14 @@
   },
   "dependencies": {
     "base-pkg": "^0.2.4",
-    "common-middleware": "^0.2.9",
+    "common-middleware": "^0.2.10",
     "common-questions": "^0.2.4",
     "engine-base": "^0.1.2",
     "extend-shallow": "^2.0.1",
-    "is-valid-app": "^0.1.1",
+    "is-valid-app": "^0.2.0",
     "lazy-cache": "^2.0.1",
     "mixin-deep": "^1.1.3",
+    "template-helpers": "^0.6.4",
     "verb-repo-data": "^0.1.11"
   },
   "devDependencies": {
@@ -56,6 +58,9 @@
     "front",
     "frontend",
     "generate",
+    "generate-generator",
+    "generate-plugin",
+    "generategenerator",
     "generateplugin",
     "generator",
     "init",
