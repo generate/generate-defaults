@@ -1,7 +1,7 @@
 {
   "name": "generate-defaults",
   "description": "Use this generator to add some common default settings to your 'generate', verb, and assemble generators.",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "homepage": "https://github.com/generate/generate-defaults",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-defaults",
@@ -109,9 +109,9 @@
       "generate-collections",
       "template-helpers",
       "verb",
-      "verb-generate-readme",
       "verb-readme-generator",
-      "verb-repo-data"
+      "verb-repo-data",
+      "verb-generate-readme"
     ],
     "lint": {
       "reflinks": true
