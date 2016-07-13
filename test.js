@@ -26,7 +26,6 @@ describe('generate-defaults', function() {
   describe('data', function() {
     it('should add package.json properties to `cache.data` on a generator', function() {
       app.use(defaults);
-      assert(app.cache.data.hasOwnProperty('runner'));
       assert(app.cache.data.hasOwnProperty('name'));
       assert(app.cache.data.hasOwnProperty('version'));
     });
@@ -42,7 +41,6 @@ describe('generate-defaults', function() {
       var count = 0;
 
       app.generator('foo', function(foo) {
-        assert(foo.cache.data.hasOwnProperty('runner'));
         assert(foo.cache.data.hasOwnProperty('name'));
         assert(foo.cache.data.hasOwnProperty('version'));
         count++;

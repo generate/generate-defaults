@@ -1,21 +1,31 @@
 'use strict';
 
-var os = require('os');
-var fs = require('fs');
-var path = require('path');
 var utils = require('./utils');
 
-module.exports = function plugin(app, base) {
+module.exports = function plugin(app) {
   if (!utils.isValid(app, 'generate-defaults')) return;
+  var project;
 
   /**
    * Plugins
    */
 
-  app.use(utils.pkg());
+  app.use(require('verb-repo-data'));
   app.use(utils.middleware());
   app.use(utils.questions());
-  app.use(require('verb-repo-data'));
+
+  /**
+   * Merge package.json object onto the `project` property on the context
+   */
+
+  Object.defineProperty(app.cache.data, 'project', {
+    set: function(val) {
+      project = val;
+    },
+    get: function() {
+      return project || (project = utils.extend({}, app.pkg.data));
+    }
+  });
 
   /**
    * Engine
@@ -30,12 +40,5 @@ module.exports = function plugin(app, base) {
    */
 
   app.helpers(require('template-helpers')());
-
-  /**
-   * Data
-   */
-
-  var projectData = utils.merge({}, app.pkg.data, app.get('cache.data.project'));
-  app.data({project: projectData});
   return plugin;
 };
