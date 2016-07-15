@@ -23,8 +23,8 @@
     "test": "mocha"
   },
   "dependencies": {
-    "common-middleware": "^0.2.11",
-    "common-questions": "^0.3.3",
+    "common-middleware": "^0.3.0",
+    "common-questions": "^0.3.4",
     "engine-base": "^0.1.2",
     "extend-shallow": "^2.0.1",
     "is-valid-app": "^0.2.0",
