@@ -10,9 +10,16 @@ require = utils;
 
 require('common-middleware', 'middleware');
 require('common-questions', 'questions');
+require('empty-dir');
 require('extend-shallow', 'extend');
 require('is-valid-app', 'isValid');
 require = fn;
+
+utils.isEmpty = function(filepath) {
+  return utils.emptyDir.sync(filepath, function(fp) {
+    return !/(\.DS_Store|Thumbs\.db)/.test(fp);
+  });
+};
 
 /**
  * Expose `utils` modules
