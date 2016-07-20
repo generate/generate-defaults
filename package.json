@@ -10,6 +10,7 @@
   },
   "license": "MIT",
   "files": [
+    "generator.js",
     "index.js",
     "LICENSE",
     "README.md",
@@ -25,6 +26,7 @@
   "dependencies": {
     "common-middleware": "^0.3.0",
     "common-questions": "^0.3.4",
+    "empty-dir": "^0.2.0",
     "engine-base": "^0.1.2",
     "extend-shallow": "^2.0.1",
     "is-valid-app": "^0.2.0",
@@ -109,9 +111,9 @@
       "generate-collections",
       "template-helpers",
       "verb",
+      "verb-generate-readme",
       "verb-readme-generator",
-      "verb-repo-data",
-      "verb-generate-readme"
+      "verb-repo-data"
     ],
     "lint": {
       "reflinks": true
