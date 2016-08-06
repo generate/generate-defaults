@@ -55,11 +55,13 @@ module.exports = function plugin(app) {
     app.confirm('directory', 'The current working directory has existing files in it, are you sure you want to proceed?', {
       default: false
     });
+
     app.ask('directory', function(err, answers) {
       if (err) {
         cb(err);
         return;
       }
+
       if (answers.directory === false) {
         app.log.warn(app.log.yellow('Got it, exiting process'));
         process.exit();

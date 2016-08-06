@@ -24,14 +24,14 @@
     "test": "mocha"
   },
   "dependencies": {
-    "common-middleware": "^0.3.0",
+    "common-middleware": "^0.4.1",
     "common-questions": "^0.3.4",
     "empty-dir": "^0.2.0",
     "engine-base": "^0.1.2",
     "extend-shallow": "^2.0.1",
     "is-valid-app": "^0.2.0",
     "lazy-cache": "^2.0.1",
-    "template-helpers": "^0.6.6",
+    "template-helpers": "^0.6.7",
     "verb-repo-data": "^0.1.11"
   },
   "devDependencies": {
