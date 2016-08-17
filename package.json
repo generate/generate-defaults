@@ -1,7 +1,7 @@
 {
   "name": "generate-defaults",
   "description": "Use this generator to add some common default settings to your 'generate', verb, and assemble generators.",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "homepage": "https://github.com/generate/generate-defaults",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-defaults",
@@ -25,8 +25,8 @@
   },
   "dependencies": {
     "common-middleware": "^0.4.1",
-    "common-questions": "^0.3.4",
-    "empty-dir": "^0.2.0",
+    "common-questions": "^0.5.0",
+    "empty-dir": "^0.2.1",
     "engine-base": "^0.1.2",
     "extend-shallow": "^2.0.1",
     "is-valid-app": "^0.2.0",
