@@ -11,9 +11,12 @@ module.exports = function plugin(app) {
    * Plugins
    */
 
-  app.use(require('verb-repo-data'));
   app.use(utils.middleware());
   app.use(utils.questions());
+  var pkg = app.pkg.data;
+  if (pkg) {
+    app.data(pkg);
+  }
 
   /**
    * Merge package.json object onto the `project` property on the context
@@ -61,7 +64,6 @@ module.exports = function plugin(app) {
         cb(err);
         return;
       }
-
       if (answers.directory === false) {
         app.log.warn(app.log.yellow('Got it, exiting process'));
         process.exit();
