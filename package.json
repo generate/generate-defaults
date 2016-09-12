@@ -1,7 +1,7 @@
 {
   "name": "generate-defaults",
   "description": "Use this generator to add some common default settings to your 'generate', verb, and assemble generators.",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "homepage": "https://github.com/generate/generate-defaults",
   "author": "Jon Schlinkert (https://github.com/jonschlinkert)",
   "repository": "generate/generate-defaults",
@@ -12,8 +12,6 @@
   "files": [
     "generator.js",
     "index.js",
-    "LICENSE",
-    "README.md",
     "utils.js"
   ],
   "main": "index.js",
@@ -29,10 +27,10 @@
     "empty-dir": "^0.2.1",
     "engine-base": "^0.1.2",
     "extend-shallow": "^2.0.1",
+    "fs-exists-sync": "^0.1.0",
     "is-valid-app": "^0.2.0",
     "lazy-cache": "^2.0.1",
-    "template-helpers": "^0.6.7",
-    "verb-repo-data": "^0.1.11"
+    "template-helpers": "^0.6.7"
   },
   "devDependencies": {
     "generate": "^0.9.0",
