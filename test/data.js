@@ -3,24 +3,13 @@
 require('mocha');
 var assert = require('assert');
 var generate = require('generate');
-var defaults = require('./');
+var defaults = require('..');
 var app;
 
 describe('generate-defaults', function() {
   beforeEach(function() {
     app = generate();
     app.use(defaults);
-  });
-
-  describe('plugin', function() {
-    describe('engine', function() {
-      it('should add an engine to the instance', function(cb) {
-        assert(app.engines['.*']);
-        assert.equal(typeof app.engines['.*'], 'object');
-        assert.equal(typeof app.engines['.*'].render, 'function');
-        cb();
-      });
-    });
   });
 
   describe('data', function() {
@@ -64,4 +53,46 @@ describe('generate-defaults', function() {
       cb();
     });
   });
+
+  describe('license', function() {
+    it('should set project.license', function(cb) {
+      app.data('project.license', 'MIT');
+      render(app, function(err) {
+        if (err) return cb(err);
+        assert.equal(app.cache.data.license, 'MIT');
+        cb();
+      });
+    });
+
+    it('should set license', function(cb) {
+      app.data('project.license', 'MIT');
+      render(app, function(err) {
+        if (err) return cb(err);
+        assert.equal(app.cache.data.license, 'MIT');
+        cb();
+      });
+    });
+
+    it('should get license', function(cb) {
+      render(app, function(err) {
+        if (err) return cb(err);
+        assert.equal(app.cache.data.license, 'MIT');
+        cb();
+      });
+    });
+  });
 });
+
+function render(app, cb) {
+  if (!app.tests) {
+    app.engine('*', require('engine-base'));
+    app.create('tests');
+    app.test('foo.md', {content: 'this is foo'});
+  }
+  app.toStream('tests')
+    .pipe(app.renderFile('*'))
+    .on('error', cb)
+    .pipe(app.dest('test/actual'))
+    .on('error', cb)
+    .on('end', cb);
+}
