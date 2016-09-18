@@ -28,6 +28,7 @@
     "engine-base": "^0.1.2",
     "extend-shallow": "^2.0.1",
     "fs-exists-sync": "^0.1.0",
+    "generate-data": "^0.1.0",
     "is-valid-app": "^0.2.0",
     "lazy-cache": "^2.0.1",
     "template-helpers": "^0.6.7"
