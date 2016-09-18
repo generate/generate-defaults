@@ -14,10 +14,6 @@ module.exports = function plugin(app) {
   app.use(require('generate-data'));
   app.use(utils.middleware());
   app.use(utils.questions());
-  var pkg = app.pkg.data;
-  if (pkg) {
-    app.data(pkg);
-  }
 
   /**
    * Merge package.json object onto the `project` property on the context
