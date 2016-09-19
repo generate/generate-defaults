@@ -84,7 +84,9 @@
   ],
   "verb": {
     "run": true,
-    "toc": true,
+    "toc": {
+      "method": "preWrite"
+    },
     "layout": "default",
     "tasks": [
       "readme"
@@ -101,17 +103,12 @@
       ]
     },
     "reflinks": [
-      "assemble",
-      "base-pkg",
       "common-middleware",
       "common-questions",
       "engine-base",
-      "generate",
-      "generate-collections",
       "template-helpers",
       "verb",
       "verb-generate-readme",
-      "verb-readme-generator",
       "verb-repo-data"
     ],
     "lint": {
